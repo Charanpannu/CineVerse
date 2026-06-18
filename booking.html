@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Seats — CineVerse</title>
+  <meta name="description" content="Choose your seats and book your movie experience on CineVerse." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+</head>
+<body>
+<div class="booking-page">
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ── Booking Navigation ── -->
+  <nav class="booking-nav">
+    <a href="index.html" class="booking-nav-back" id="back-btn">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <div class="booking-nav-brand">CINE<span style="color:#fff">VERSE</span></div>
+    <div class="booking-nav-title">
+      <div class="booking-nav-movie-thumb">
+        <img id="nav-thumb-img" src="" alt="" style="display:none;" />
+        <div class="mini-placeholder" id="nav-thumb-placeholder"></div>
+      </div>
+      <span id="nav-movie-title">Select Seats</span>
+    </div>
+  </nav>
+
+  <!-- ── Movie Header Banner ── -->
+  <div class="movie-header-banner" id="movie-header-banner">
+    <div class="movie-header-bg">
+      <img class="movie-header-bg-img" id="header-bg-img" src="" alt="" />
+      <div class="movie-header-bg-gradient" id="header-bg-gradient"></div>
+    </div>
+    <div class="movie-header-overlay"></div>
+    <div class="movie-header-bottom-fade"></div>
+    <div class="movie-header-content">
+      <div class="movie-header-poster">
+        <img id="header-poster-img" src="" alt="" />
+        <div class="poster-placeholder" id="header-poster-placeholder" style="display:none;"></div>
+      </div>
+      <div class="movie-header-info">
+        <h1 class="movie-header-title" id="header-title">Loading...</h1>
+        <div class="movie-header-meta">
+          <div class="mh-rating">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#f5a623"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span id="header-rating"></span>
+          </div>
+          <span class="mh-sep">•</span>
+          <span class="mh-detail" id="header-year"></span>
+          <span class="mh-sep">•</span>
+          <span class="mh-detail" id="header-duration"></span>
+          <span class="mh-detail tag tag-cert" id="header-cert"></span>
+        </div>
+        <div class="movie-header-genres" id="header-genres"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Showtime Selector ── -->
+  <div class="showtime-section">
+    <div class="showtime-label">Select Show Time</div>
+    <div class="showtime-options" id="showtime-options"></div>
+  </div>
+
+  <!-- ── Main Booking Area ── -->
+  <div class="booking-main">
+
+    <!-- Left: Seat Map -->
+    <div class="booking-left">
+      <!-- Screen -->
+      <div class="screen-container">
+        <div class="screen-arc">
+          <div class="screen-glow"></div>
+        </div>
+        <div class="screen-label">All Eyes This Way Please!</div>
+      </div>
+
+      <!-- Seat Map -->
+      <div class="seat-map-container">
+        <div id="seat-map" class="seat-map"></div>
+        <!-- Legend -->
+        <div class="seat-legend">
+          <div class="legend-item">
+            <div class="legend-seat gold"></div>
+            <span>Gold (Premium)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-seat silver"></div>
+            <span>Silver (Standard)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-seat bronze"></div>
+            <span>Bronze (Economy)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-seat booked"></div>
+            <span>Booked</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-seat selected"></div>
+            <span>Your Selection</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Booking Summary Sidebar -->
+    <div class="booking-right">
+      <div class="booking-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Booking Summary</div>
+          <div class="sidebar-movie-name" id="sidebar-movie-name">—</div>
+        </div>
+        <div class="sidebar-showtime-info" id="sidebar-showtime-info">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+          <span id="sidebar-showtime-text">Select a showtime above</span>
+        </div>
+        <div class="sidebar-body">
+          <!-- Empty State -->
+          <div class="empty-seats-msg" id="empty-seats-msg">
+            <div class="empty-icon">🎭</div>
+            <p>Select seats from the<br/>map to see your booking summary</p>
+          </div>
+          <!-- Selected Seats List -->
+          <div class="selected-seats-list" id="selected-seats-list" style="display:none;"></div>
+          <!-- Price Breakdown -->
+          <div class="price-breakdown" id="price-breakdown" style="display:none;">
+            <div class="price-row">
+              <span class="price-row-label">Subtotal</span>
+              <span class="price-row-value" id="subtotal-val">₹0</span>
+            </div>
+            <div class="price-row">
+              <span class="price-row-label">GST (18%)</span>
+              <span class="price-row-value" id="gst-val">₹0</span>
+            </div>
+            <div class="price-row">
+              <span class="price-row-label">Convenience Fee</span>
+              <span class="price-row-value" id="fee-val">₹30</span>
+            </div>
+            <div class="price-row total">
+              <span class="price-row-label">Total Amount</span>
+              <span class="price-row-value" id="total-val">₹0</span>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <div class="max-seats-warn" id="max-seats-warn">Maximum 8 seats per booking</div>
+          <div class="seats-count-info" id="seats-count-info">Select up to 8 seats</div>
+          <button class="btn-gold" id="confirm-btn" disabled>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Confirm Booking
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /booking-main -->
+</div><!-- /booking-page -->
+
+<script src="js/data.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineVerse — Stream & Book Movies</title>
+  <meta name="description" content="CineVerse: Discover the latest blockbusters and book your seats with ease. Your ultimate movie streaming and seat booking platform." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+<!-- Page Loader -->
+<div id="page-loader">
+  <div class="loader-logo">CINE<span style="color:#fff">VERSE</span></div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ── Navigation ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">CINE<span>VERSE</span></div>
+  <ul class="nav-links">
+    <li class="nav-link active" data-cat="All">Home</li>
+    <li class="nav-link" data-cat="Action">Action</li>
+    <li class="nav-link" data-cat="Sci-Fi">Sci-Fi</li>
+    <li class="nav-link" data-cat="Thriller">Thriller</li>
+    <li class="nav-link" data-cat="Drama">Drama</li>
+    <li class="nav-link" data-cat="Horror">Horror</li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-search-wrap">
+      <input type="text" id="search-input" class="nav-search" placeholder="Search movies..." autocomplete="off" />
+      <svg class="nav-search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+    </div>
+    <div class="nav-avatar" id="user-avatar" title="My Account">C</div>
+  </div>
+</nav>
+
+<!-- Search Results Overlay -->
+<div class="search-results-overlay" id="search-results"></div>
+
+<!-- ── Hero Section ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="hero-bg">
+    <img class="hero-bg-image" id="hero-bg-img" src="" alt="" />
+    <div class="hero-bg-gradient" id="hero-bg-gradient"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay-bottom"></div>
+  <div class="hero-content" id="hero-content">
+    <div class="hero-badge">🎬 Featured Today</div>
+    <h1 class="hero-title" id="hero-title"></h1>
+    <p class="hero-tagline" id="hero-tagline"></p>
+    <div class="hero-meta">
+      <div class="hero-rating" id="hero-rating">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span id="hero-rating-val"></span>
+      </div>
+      <span class="hero-sep">•</span>
+      <span class="hero-year" id="hero-year"></span>
+      <span class="hero-sep">•</span>
+      <span class="hero-duration" id="hero-duration"></span>
+      <span class="hero-sep">•</span>
+      <span class="hero-cert tag tag-cert" id="hero-cert"></span>
+    </div>
+    <div class="hero-genres" id="hero-genres"></div>
+    <p class="hero-synopsis" id="hero-synopsis"></p>
+    <div class="hero-actions">
+      <button class="btn-primary" id="hero-book-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Book Tickets
+      </button>
+      <button class="btn-secondary" id="hero-info-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        More Info
+      </button>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ── Main Content ── -->
+<main class="main-content" id="main-content">
+
+  <!-- Category Filters -->
+  <div class="category-filters" id="category-filters"></div>
+
+  <!-- All Movies Grid (shown when filtering) -->
+  <section class="section movies-grid-section" id="grid-section">
+    <div class="section-header">
+      <h2 class="section-title" id="grid-section-title">Movies</h2>
+    </div>
+    <div class="movies-grid" id="movies-grid"></div>
+  </section>
+
+  <!-- Genre Row: Now Showing -->
+  <section class="section" id="section-showing">
+    <div class="section-header">
+      <h2 class="section-title">Now Showing</h2>
+      <span class="section-see-all" data-row="showing">
+        See All
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </span>
+    </div>
+    <div class="movie-row-wrap">
+      <button class="row-btn row-btn-left" data-row="showing">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="movie-row" id="row-showing"></div>
+      <button class="row-btn row-btn-right" data-row="showing">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Genre Row: Action -->
+  <section class="section" id="section-action">
+    <div class="section-header">
+      <h2 class="section-title">Action & Thriller</h2>
+      <span class="section-see-all" data-row="action">
+        See All
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </span>
+    </div>
+    <div class="movie-row-wrap">
+      <button class="row-btn row-btn-left" data-row="action">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="movie-row" id="row-action"></div>
+      <button class="row-btn row-btn-right" data-row="action">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Genre Row: Sci-Fi -->
+  <section class="section" id="section-scifi">
+    <div class="section-header">
+      <h2 class="section-title">Sci-Fi & Fantasy</h2>
+      <span class="section-see-all" data-row="scifi">
+        See All
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </span>
+    </div>
+    <div class="movie-row-wrap">
+      <button class="row-btn row-btn-left" data-row="scifi">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="movie-row" id="row-scifi"></div>
+      <button class="row-btn row-btn-right" data-row="scifi">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Genre Row: Drama & Romance -->
+  <section class="section" id="section-drama">
+    <div class="section-header">
+      <h2 class="section-title">Drama & Romance</h2>
+      <span class="section-see-all" data-row="drama">
+        See All
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </span>
+    </div>
+    <div class="movie-row-wrap">
+      <button class="row-btn row-btn-left" data-row="drama">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="movie-row" id="row-drama"></div>
+      <button class="row-btn row-btn-right" data-row="drama">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Genre Row: Horror -->
+  <section class="section" id="section-horror">
+    <div class="section-header">
+      <h2 class="section-title">Horror & Mystery</h2>
+      <span class="section-see-all" data-row="horror">
+        See All
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </span>
+    </div>
+    <div class="movie-row-wrap">
+      <button class="row-btn row-btn-left" data-row="horror">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="movie-row" id="row-horror"></div>
+      <button class="row-btn row-btn-right" data-row="horror">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="footer-logo">CINE<span style="color:#fff">VERSE</span></div>
+  <div class="footer-links">
+    <span class="footer-link">About Us</span>
+    <span class="footer-link">Privacy Policy</span>
+    <span class="footer-link">Terms of Service</span>
+    <span class="footer-link">Help Center</span>
+    <span class="footer-link">Contact</span>
+  </div>
+  <p class="footer-copy">© 2024 CineVerse. All rights reserved. Made with ❤️ for movie lovers.</p>
+</footer>
+
+<!-- ── Movie Detail Modal ── -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="movie-modal">
+    <div class="modal-hero" id="modal-hero">
+      <img class="modal-hero-img" id="modal-hero-img" src="" alt="" />
+      <div class="modal-hero-placeholder" id="modal-hero-placeholder" style="display:none;"></div>
+      <div class="modal-hero-overlay"></div>
+      <button class="modal-close" id="modal-close" aria-label="Close modal">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-content-row">
+        <div class="modal-poster" id="modal-poster">
+          <img id="modal-poster-img" src="" alt="" />
+          <div class="modal-poster-placeholder" id="modal-poster-placeholder" style="display:none;"></div>
+        </div>
+        <div class="modal-info">
+          <h2 class="modal-title" id="modal-title"></h2>
+          <p class="modal-tagline" id="modal-tagline"></p>
+          <div class="modal-meta">
+            <div class="modal-rating">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f5a623"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span id="modal-rating"></span>
+            </div>
+            <span class="modal-votes" id="modal-votes"></span>
+            <div class="modal-divider"></div>
+            <span class="modal-detail-text" id="modal-year"></span>
+            <span class="modal-detail-text">•</span>
+            <span class="modal-detail-text" id="modal-duration"></span>
+            <span class="tag tag-cert" id="modal-cert"></span>
+          </div>
+          <div class="modal-genres" id="modal-genres"></div>
+        </div>
+      </div>
+      <p class="modal-synopsis" id="modal-synopsis"></p>
+      <div class="modal-crew" id="modal-crew">
+        <div class="modal-crew-item">
+          <label>Director</label>
+          <span id="modal-director"></span>
+        </div>
+        <div class="modal-crew-item">
+          <label>Starring</label>
+          <span id="modal-cast"></span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="modal-book-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Book Tickets
+        </button>
+        <button class="btn-secondary" id="modal-watchlist-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Watchlist
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

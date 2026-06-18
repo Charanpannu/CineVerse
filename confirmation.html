@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed — CineVerse</title>
+  <meta name="description" content="Your movie tickets have been booked successfully on CineVerse." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/confirmation.css" />
+</head>
+<body>
+<div class="confirmation-page">
+
+  <!-- Confetti -->
+  <div class="confetti-container" id="confetti-container"></div>
+
+  <!-- ── Navigation ── -->
+  <nav class="confirmation-nav">
+    <div class="confirmation-nav-brand">CINE<span style="color:#fff">VERSE</span></div>
+  </nav>
+
+  <!-- ── Confirmation Content ── -->
+  <main class="confirmation-main">
+
+    <!-- Success Animation -->
+    <div class="success-circle" id="success-circle">
+      <svg class="success-checkmark" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+
+    <h1 class="confirm-heading">Booking Confirmed! 🎉</h1>
+    <p class="confirm-subheading">Your tickets are ready. Enjoy the movie!</p>
+
+    <!-- Booking ID -->
+    <div class="booking-id-banner">
+      <span class="booking-id-label">Booking ID</span>
+      <span class="booking-id-value" id="booking-id-value">—</span>
+    </div>
+
+    <!-- ── Ticket Card ── -->
+    <div class="ticket-card" id="ticket-card">
+
+      <!-- Ticket Header -->
+      <div class="ticket-header">
+        <div class="ticket-header-bg">
+          <img class="ticket-header-bg-img" id="ticket-bg-img" src="" alt="" />
+          <div class="ticket-header-bg-gradient" id="ticket-bg-gradient"></div>
+        </div>
+        <div class="ticket-header-overlay"></div>
+        <div class="ticket-header-content">
+          <div class="ticket-poster">
+            <img id="ticket-poster-img" src="" alt="" />
+            <div class="tp-placeholder" id="ticket-poster-placeholder" style="display:none;"></div>
+          </div>
+          <div class="ticket-movie-info">
+            <div class="ticket-movie-title" id="ticket-movie-title">—</div>
+            <div class="ticket-movie-meta">
+              <span id="ticket-cert"></span>
+              <span>•</span>
+              <span id="ticket-duration"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Perforation -->
+      <div class="ticket-perforation">
+        <div class="ticket-perforation-line"></div>
+      </div>
+
+      <!-- Ticket Body -->
+      <div class="ticket-body">
+        <div class="ticket-details-grid">
+          <div class="ticket-detail-item">
+            <div class="ticket-detail-label">Date</div>
+            <div class="ticket-detail-value" id="ticket-date">—</div>
+          </div>
+          <div class="ticket-detail-item">
+            <div class="ticket-detail-label">Show Time</div>
+            <div class="ticket-detail-value" id="ticket-showtime">—</div>
+          </div>
+          <div class="ticket-detail-item">
+            <div class="ticket-detail-label">Cinema</div>
+            <div class="ticket-detail-value">CineVerse IMAX</div>
+          </div>
+          <div class="ticket-detail-item">
+            <div class="ticket-detail-label">Screen</div>
+            <div class="ticket-detail-value" id="ticket-screen">Screen 1</div>
+          </div>
+          <div class="ticket-detail-item ticket-seats-row">
+            <div class="ticket-detail-label">Seats</div>
+            <div class="ticket-seats-value" id="ticket-seats"></div>
+          </div>
+        </div>
+
+        <!-- QR Code -->
+        <div class="ticket-qr-section">
+          <div class="qr-code" id="qr-code"></div>
+          <div class="qr-text">
+            <div class="qr-scan-label">Scan at the entrance</div>
+            <div class="qr-scan-hint" id="qr-code-text">CV-XXXX-XXXX-XXXX</div>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="ticket-total">
+          <span class="ticket-total-label">Amount Paid</span>
+          <span class="ticket-total-value" id="ticket-total">₹0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="confirmation-actions">
+      <a href="index.html" class="btn-primary">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        Back to Home
+      </a>
+      <button class="btn-secondary" id="download-btn" onclick="window.print()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Ticket
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/confirmation.js"></script>
+</body>
+</html>
